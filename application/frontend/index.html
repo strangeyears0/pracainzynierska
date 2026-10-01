@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Rezerwacji Zasobów i Przestrzeni Biurowej</title>
+  <meta name="description" content="Interaktywny system rezerwacji zasobów biurowych oparty na mikroserwisach FastAPI oraz interaktywnej mapie SVG.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- HEADER -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-icon">🏢</div>
+        <div class="brand-text">
+          <h1>System Rezerwacji Zasobów</h1>
+          <p>Architektura Mikrousług &bull; Interaktywna Mapa Biura SVG</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- Statusy Mikrousług -->
+        <div class="services-status">
+          <div class="status-badge" id="badge-res-service">
+            <div class="status-dot" id="dot-res-service"></div>
+            <span>Reservation API</span>
+          </div>
+          <div class="status-badge" id="badge-notif-service">
+            <div class="status-dot" id="dot-notif-service"></div>
+            <span>Notification API</span>
+          </div>
+        </div>
+
+        <!-- Wybór Aktywnego Użytkownika -->
+        <div class="user-profile-card">
+          <div class="user-avatar" id="current-user-avatar">JK</div>
+          <select id="user-select" class="user-select">
+            <option value="jan.kowalski@firma.pl">Jan Kowalski (IT)</option>
+            <option value="anna.nowak@firma.pl">Anna Nowak (HR)</option>
+            <option value="piotr.wisniewski@firma.pl">Piotr Wiśniewski (UX/UI)</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <!-- PANEL KONTROLNY / FILTRY -->
+    <section class="controls-bar">
+      <!-- Filtry kategorii -->
+      <div class="filter-group">
+        <button class="btn-filter active" data-category="all">Wszystkie Zasoby</button>
+        <button class="btn-filter" data-category="desk">💻 Biurka</button>
+        <button class="btn-filter" data-category="room">🏛️ Sale Konferencyjne</button>
+        <button class="btn-filter" data-category="parking">🚗 Parking</button>
+      </div>
+
+      <!-- Wybór Daty i Godziny Rezerwacji -->
+      <div class="time-picker-group">
+        <label for="filter-date">Data:</label>
+        <input type="date" id="filter-date">
+        <label for="filter-start-time">Od:</label>
+        <input type="time" id="filter-start-time" value="09:00">
+        <label for="filter-end-time">Do:</label>
+        <input type="time" id="filter-end-time" value="17:00">
+      </div>
+
+      <!-- Statystyki -->
+      <div class="stats-summary">
+        <div class="stat-item">
+          <span>Wolne:</span>
+          <span class="stat-badge avail" id="stat-count-available">0</span>
+        </div>
+        <div class="stat-item">
+          <span>Zarezerwowane:</span>
+          <span class="stat-badge res" id="stat-count-reserved">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- GŁÓWNY GRID (MAPA + PANEL DETAILS) -->
+    <main class="main-grid">
+      
+      <!-- LEWA STRONA: MAPA SVG BIURA -->
+      <section class="workspace-card">
+        <div class="card-title-bar">
+          <h2>Plan Biura &bull; Interaktywna Mapa SVG</h2>
+          <div class="map-legend">
+            <div class="legend-item">
+              <div class="legend-color avail"></div>
+              <span>Wolne</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color res"></div>
+              <span>Zarezerwowane</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color selected"></div>
+              <span>Wybrane</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="svg-viewport" id="svg-viewport">
+          <!-- Wskazówki Hover Tooltip -->
+          <div class="map-tooltip" id="map-tooltip"></div>
+
+          <!-- KOD MAPY SVG -->
+          <svg id="office-map-svg" viewBox="0 0 1000 650" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Gradients & Shadows -->
+              <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0f172a" />
+                <stop offset="100%" stop-color="#070b14" />
+              </linearGradient>
+              <linearGradient id="zone-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.03)" />
+                <stop offset="100%" stop-color="rgba(255,255,255,0.01)" />
+              </linearGradient>
+              <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="4" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+
+            <!-- Tło planu biura -->
+            <rect width="1000" height="650" rx="16" fill="url(#bg-grad)" stroke="rgba(255,255,255,0.08)" stroke-width="2" />
+
+            <!-- Siatka / Linie podziału biura -->
+            <!-- STREFA A: OPEN SPACE -->
+            <rect x="30" y="30" width="450" height="360" rx="12" fill="url(#zone-grad)" stroke="rgba(255,255,255,0.06)" stroke-dasharray="6,6" />
+            <text x="50" y="55" fill="#64748b" font-family="Outfit" font-size="14" font-weight="700">STREFA A - OPEN SPACE WORKSPACE</text>
+
+            <!-- BIURKA STREFA A (DESK-01 do DESK-06) -->
+            <!-- Rząd 1 -->
+            <g class="map-resource" id="svg-DESK-01" data-id="DESK-01" data-status="available" transform="translate(60, 80)">
+              <rect width="110" height="70" rx="8" />
+              <circle cx="55" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="55" y="44" class="resource-label">DESK-01</text>
+              <text x="55" y="58" class="resource-sublabel">Biurko Ciche</text>
+            </g>
+
+            <g class="map-resource" id="svg-DESK-02" data-id="DESK-02" data-status="available" transform="translate(190, 80)">
+              <rect width="110" height="70" rx="8" />
+              <circle cx="55" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="55" y="44" class="resource-label">DESK-02</text>
+              <text x="55" y="58" class="resource-sublabel">Standard</text>
+            </g>
+
+            <g class="map-resource" id="svg-DESK-03" data-id="DESK-03" data-status="available" transform="translate(320, 80)">
+              <rect width="110" height="70" rx="8" />
+              <circle cx="55" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="55" y="44" class="resource-label">DESK-03</text>
+              <text x="55" y="58" class="resource-sublabel">Standard</text>
+            </g>
+
+            <!-- Rząd 2 -->
+            <g class="map-resource" id="svg-DESK-04" data-id="DESK-04" data-status="available" transform="translate(60, 180)">
+              <rect width="110" height="70" rx="8" />
+              <circle cx="55" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="55" y="44" class="resource-label">DESK-04</text>
+              <text x="55" y="58" class="resource-sublabel">UltraWide 34"</text>
+            </g>
+
+            <g class="map-resource" id="svg-DESK-05" data-id="DESK-05" data-status="available" transform="translate(190, 180)">
+              <rect width="110" height="70" rx="8" />
+              <circle cx="55" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="55" y="44" class="resource-label">DESK-05</text>
+              <text x="55" y="58" class="resource-sublabel">Przy oknie</text>
+            </g>
+
+            <g class="map-resource" id="svg-DESK-06" data-id="DESK-06" data-status="available" transform="translate(320, 180)">
+              <rect width="110" height="70" rx="8" />
+              <circle cx="55" cy="18" r="10" fill="none" stroke="currentColor" stroke-width="1.5" />
+              <text x="55" y="44" class="resource-label">DESK-06</text>
+              <text x="55" y="58" class="resource-sublabel">Przy oknie</text>
+            </g>
+
+            <!-- Kawiarnia / Strefa relaksu -->
+            <rect x="60" y="280" width="370" height="90" rx="8" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.05)" />
+            <text x="245" y="325" fill="#475569" font-family="Outfit" font-size="13" text-anchor="middle">☕ Strefa Chillout & Kuchnia</text>
+
+            <!-- STREFA B: BIURKA STOJĄCE STAND-UP -->
+            <rect x="500" y="30" width="220" height="360" rx="12" fill="url(#zone-grad)" stroke="rgba(255,255,255,0.06)" stroke-dasharray="6,6" />
+            <text x="515" y="55" fill="#64748b" font-family="Outfit" font-size="14" font-weight="700">STREFA B - STAND-UP</text>
+
+            <g class="map-resource" id="svg-DESK-07" data-id="DESK-07" data-status="available" transform="translate(520, 80)">
+              <rect width="180" height="75" rx="8" />
+              <text x="90" y="42" class="resource-label">DESK-07</text>
+              <text x="90" y="58" class="resource-sublabel">Elektryczne Biurko Stand-Up</text>
+            </g>
+
+            <g class="map-resource" id="svg-DESK-08" data-id="DESK-08" data-status="available" transform="translate(520, 180)">
+              <rect width="180" height="75" rx="8" />
+              <text x="90" y="42" class="resource-label">DESK-08</text>
+              <text x="90" y="58" class="resource-sublabel">Elektryczne Biurko Stand-Up</text>
+            </g>
+
+            <!-- STREFA SALE KONFERENCYJNE -->
+            <rect x="740" y="30" width="230" height="360" rx="12" fill="url(#zone-grad)" stroke="rgba(255,255,255,0.06)" stroke-dasharray="6,6" />
+            <text x="755" y="55" fill="#64748b" font-family="Outfit" font-size="14" font-weight="700">SALE SPOTKAŃ</text>
+
+            <!-- ROOM-A -->
+            <g class="map-resource" id="svg-ROOM-A" data-id="ROOM-A" data-status="available" transform="translate(755, 75)">
+              <rect width="200" height="90" rx="8" />
+              <text x="100" y="44" class="resource-label">SALA ALPHA</text>
+              <text x="100" y="60" class="resource-sublabel">Zarząd (10 osób, 4K TV)</text>
+            </g>
+
+            <!-- ROOM-B -->
+            <g class="map-resource" id="svg-ROOM-B" data-id="ROOM-B" data-status="available" transform="translate(755, 180)">
+              <rect width="200" height="80" rx="8" />
+              <text x="100" y="40" class="resource-label">SALA BETA</text>
+              <text x="100" y="56" class="resource-sublabel">Warsztatowa (6 osób)</text>
+            </g>
+
+            <!-- ROOM-C -->
+            <g class="map-resource" id="svg-ROOM-C" data-id="ROOM-C" data-status="available" transform="translate(755, 275)">
+              <rect width="200" height="75" rx="8" />
+              <text x="100" y="38" class="resource-label">BOKS FOKUS C</text>
+              <text x="100" y="54" class="resource-sublabel">Budka Akustyczna (2 os.)</text>
+            </g>
+
+            <!-- STREFA PARKING PODZIEMNY -->
+            <rect x="30" y="410" width="940" height="210" rx="12" fill="url(#zone-grad)" stroke="rgba(255,255,255,0.06)" stroke-dasharray="6,6" />
+            <text x="50" y="435" fill="#64748b" font-family="Outfit" font-size="14" font-weight="700">PARKING PODZIEMNY (POZIOM -1)</text>
+
+            <g class="map-resource" id="svg-PARK-01" data-id="PARK-01" data-status="available" transform="translate(60, 455)">
+              <rect width="200" height="135" rx="8" />
+              <text x="100" y="60" class="resource-label">⚡ MIEJSCE P1 (EV)</text>
+              <text x="100" y="80" class="resource-sublabel">Szybka Ładowarka 22kW</text>
+            </g>
+
+            <g class="map-resource" id="svg-PARK-02" data-id="PARK-02" data-status="available" transform="translate(290, 455)">
+              <rect width="200" height="135" rx="8" />
+              <text x="100" y="60" class="resource-label">PARK-02</text>
+              <text x="100" y="80" class="resource-sublabel">Standardowe Podziemne</text>
+            </g>
+
+            <g class="map-resource" id="svg-PARK-03" data-id="PARK-03" data-status="available" transform="translate(520, 455)">
+              <rect width="200" height="135" rx="8" />
+              <text x="100" y="60" class="resource-label">PARK-03</text>
+              <text x="100" y="80" class="resource-sublabel">Blisko windy głównej</text>
+            </g>
+
+            <g class="map-resource" id="svg-PARK-04" data-id="PARK-04" data-status="available" transform="translate(750, 455)">
+              <rect width="200" height="135" rx="8" />
+              <text x="100" y="60" class="resource-label">PARK-04</text>
+              <text x="100" y="80" class="resource-sublabel">Miejsce dla gości</text>
+            </g>
+
+          </svg>
+        </div>
+      </section>
+
+      <!-- PRAWY SIDEBAR: INFORMACJE O WYBRANYM ZASOBIE & FORMULARZ REZERWACJI -->
+      <aside class="sidebar-panel">
+        <div class="detail-card">
+          
+          <div class="detail-header">
+            <div class="detail-icon" id="res-detail-icon">💻</div>
+            <div class="detail-title">
+              <h3 id="res-detail-name">Kliknij zasób na mapie</h3>
+              <span id="res-detail-zone">Wybierz biurko, salę lub miejsce parkingowe</span>
+            </div>
+          </div>
+
+          <div class="resource-features-list" id="res-features-container">
+            <span class="feature-tag">Interaktywny wybór</span>
+            <span class="feature-tag">Status na żywo</span>
+          </div>
+
+          <!-- FORMULARZ REZERWACJI -->
+          <form id="reservation-form" class="booking-form">
+            <input type="hidden" id="form-resource-id" value="">
+
+            <div class="form-group">
+              <label for="form-user-name">Imię i Nazwisko:</label>
+              <input type="text" id="form-user-name" class="form-input" value="Jan Kowalski" required>
+            </div>
+
+            <div class="form-group">
+              <label for="form-user-email">Adres E-mail:</label>
+              <input type="email" id="form-user-email" class="form-input" value="jan.kowalski@firma.pl" required>
+            </div>
+
+            <div class="form-group">
+              <label for="form-start-datetime">Początek rezerwacji:</label>
+              <input type="datetime-local" id="form-start-datetime" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="form-end-datetime">Koniec rezerwacji:</label>
+              <input type="datetime-local" id="form-end-datetime" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+              <label for="form-notes">Uwagi / Cel rezerwacji:</label>
+              <input type="text" id="form-notes" class="form-input" placeholder="np. Projekt mobilny, Spotkanie klienta">
+            </div>
+
+            <button type="submit" id="btn-submit-reservation" class="btn-primary" disabled>
+              Zarezerwuj Wybrany Zasób
+            </button>
+          </form>
+
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- DOLNA SEKCJA TABÓW (ZARZĄDZANIE REZERWACJAMI & LOGI) -->
+    <section class="tabs-container">
+      <div class="tab-headers">
+        <button class="tab-btn active" data-tab="tab-my-reservations">📋 Moje Rezerwacje</button>
+        <button class="tab-btn" data-tab="tab-notifications">✉️ Dziennik Powiadomień Email (Notification Service)</button>
+        <button class="tab-btn" data-tab="tab-architecture">🏗️ Architektura Mikrousług</button>
+      </div>
+
+      <!-- TAB 1: MOJE REZERWACJE -->
+      <div class="tab-content active" id="tab-my-reservations">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Zasób</th>
+              <th>Użytkownik</th>
+              <th>Data Początkowa</th>
+              <th>Data Końcowa</th>
+              <th>Status</th>
+              <th>Uwagi</th>
+              <th>Akcje</th>
+            </tr>
+          </thead>
+          <tbody id="reservations-table-body">
+            <tr>
+              <td colspan="8" style="text-align: center; color: var(--text-muted);">Brak aktywnych rezerwacji. Wybierz zasób z mapy SVG, aby złożyć rezerwację.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB 2: LOGI E-MAIL -->
+      <div class="tab-content" id="tab-notifications">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ID Logu</th>
+              <th>Odbiorca</th>
+              <th>Temat</th>
+              <th>Treść Wiadomości</th>
+              <th>Czas Wysyłki</th>
+              <th>Status Dostarczenia</th>
+            </tr>
+          </thead>
+          <tbody id="notifications-table-body">
+            <tr>
+              <td colspan="6" style="text-align: center; color: var(--text-muted);">Brak wysłanych powiadomień e-mail. Wysłanie rezerwacji automatycznie wygeneruje e-mail.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB 3: ARCHITEKTURA -->
+      <div class="tab-content" id="tab-architecture">
+        <div class="architecture-box">
+          <div class="arch-card">
+            <h4>1. reservation-service (Port 8000)</h4>
+            <p>Usługa FastAPI zarządzająca zasobami i rezerwacjami.</p>
+            <ul>
+              <li>• database.py (SQLAlchemy + PostgreSQL / SQLite)</li>
+              <li>• models.py (Resource, Reservation)</li>
+              <li>• main.py (REST API: GET /api/resources, POST /api/reservations, POST /api/reservations/{id}/cancel)</li>
+            </ul>
+          </div>
+
+          <div class="arch-card">
+            <h4>2. user-notification-service (Port 8001)</h4>
+            <p>Usługa FastAPI odpowiedzialna za profile użytkowników i wysyłkę e-mail.</p>
+            <ul>
+              <li>• main.py (POST /api/notifications/send-email, GET /api/notifications/logs)</li>
+              <li>• Obsługa profili użytkowników i symulacja wysyłki SMTP</li>
+            </ul>
+          </div>
+
+          <div class="arch-card">
+            <h4>3. Frontend (SVG + Native JS)</h4>
+            <p>Interaktywny interfejs użytkownika podłączony do obu mikroserwisów REST API.</p>
+            <ul>
+              <li>• Interaktywna mapa biura w formacie SVG (real-time status)</li>
+              <li>• Hybrydowy klienta API z automatycznym wywołaniem REST i fallbackiem</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <!-- TOAST NOTIFICATIONS -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
