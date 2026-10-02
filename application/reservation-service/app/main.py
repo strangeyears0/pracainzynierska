@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 
-from .database import engine, Base, get_db
+from .database import engine, Base, get_db, SessionLocal
 from .models import Resource, Reservation
 
 # Utworzenie tabel w bazie danych przy starcie
