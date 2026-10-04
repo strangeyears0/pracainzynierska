@@ -47,3 +47,10 @@ module "eks" {
   max_size         = 4
   instance_types   = ["t3.medium"]
 }
+
+# Moduł 5: Potok CI/CD (AWS CodeBuild i S3 Artifacts)
+module "pipeline" {
+  source             = "./modules/pipeline"
+  cluster_name       = var.cluster_name
+  codebuild_role_arn = module.iam.codebuild_role_arn
+}

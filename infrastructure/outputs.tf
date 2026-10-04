@@ -27,3 +27,8 @@ output "eks_cluster_endpoint" {
   description = "Adres API klastra EKS"
   value       = module.eks.cluster_endpoint
 }
+
+output "codebuild_project_name" {
+  description = "Nazwa projektu AWS CodeBuild"
+  value       = module.pipeline.codebuild_project_name
+}

@@ -1,0 +1,60 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "Instalowanie narzędzi CLI (kubectl)..."
+      - curl -o kubectl https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.0/2023-08-16/bin/linux/amd64/kubectl
+      - chmod +x ./kubectl && mv ./kubectl /usr/local/bin/
+
+  pre_build:
+    commands:
+      - echo "Uwierzytelnianie w rejestrze Amazon ECR..."
+      - AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - REPO_URI="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+      - aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPO_URI}
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:-latest}
+      - echo "Lokalny tag obrazów: ${IMAGE_TAG}"
+
+  build:
+    commands:
+      - echo "1. Budowanie obrazu Docker dla reservation-service..."
+      - docker build -t ${REPO_URI}/reservation-service:${IMAGE_TAG} ./application/reservation-service/
+      - docker tag ${REPO_URI}/reservation-service:${IMAGE_TAG} ${REPO_URI}/reservation-service:latest
+
+      - echo "2. Budowanie obrazu Docker dla user-notification-service..."
+      - docker build -t ${REPO_URI}/user-notification-service:${IMAGE_TAG} ./application/user-notification-service/
+      - docker tag ${REPO_URI}/user-notification-service:${IMAGE_TAG} ${REPO_URI}/user-notification-service:latest
+
+      - echo "3. Budowanie obrazu Docker dla frontend..."
+      - docker build -t ${REPO_URI}/frontend:${IMAGE_TAG} ./application/frontend/
+      - docker tag ${REPO_URI}/frontend:${IMAGE_TAG} ${REPO_URI}/frontend:latest
+
+  post_build:
+    commands:
+      - echo "Wysyłanie zbudowanych obrazów do Amazon ECR..."
+      - docker push ${REPO_URI}/reservation-service:${IMAGE_TAG}
+      - docker push ${REPO_URI}/reservation-service:latest
+      - docker push ${REPO_URI}/user-notification-service:${IMAGE_TAG}
+      - docker push ${REPO_URI}/user-notification-service:latest
+      - docker push ${REPO_URI}/frontend:${IMAGE_TAG}
+      - docker push ${REPO_URI}/frontend:latest
+
+      - echo "Aktualizacja pliku kubeconfig dla klastra Amazon EKS..."
+      - aws eks update-kubeconfig --region ${AWS_DEFAULT_REGION} --name eks-cluster-inzynierski
+
+      - echo "Wdrażanie aktualizacji obrazów na klastrze EKS..."
+      - kubectl set image deployment/reservation-service reservation-service=${REPO_URI}/reservation-service:${IMAGE_TAG}
+      - kubectl set image deployment/user-notification-service user-notification-service=${REPO_URI}/user-notification-service:${IMAGE_TAG}
+      - kubectl set image deployment/frontend frontend=${REPO_URI}/frontend:${IMAGE_TAG}
+
+      - echo "Weryfikacja stanu bezprzerwowego wdrożenia (Rolling Update status)..."
+      - kubectl rollout status deployment/reservation-service
+      - kubectl rollout status deployment/user-notification-service
+      - kubectl rollout status deployment/frontend
+      - echo "Proces CI/CD zakończony sukcesem!"
+
+artifacts:
+  files:
+    - '**/*'
