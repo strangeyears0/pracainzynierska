@@ -116,6 +116,13 @@ def startup_event():
 
 # --- Endpointy REST ---
 
+@app.get("/")
+def read_root():
+    """Przekierowanie z głównego adresu URL do interaktywnej dokumentacji OpenAPI Swagger."""
+    from fastapi.responses import RedirectResponse
+    return RedirectResponse(url="/docs")
+
+
 @app.get("/health")
 def health_check():
     return {"status": "ok", "service": "reservation-service", "timestamp": datetime.datetime.utcnow().isoformat()}

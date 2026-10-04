@@ -77,3 +77,28 @@ Przejdź do: `http://localhost:3000`
 - `GET /api/users/profiles` - Lista profili użytkowników
 - `POST /api/notifications/send-email` - Wysyłka e-maila z potwierdzeniem rezerwacji
 - `GET /api/notifications/logs` - Pobranie logów wysłanych powiadomień
+
+---
+
+## ☸️ Wdrożenie w Kubernetes (Amazon EKS)
+
+Pliki manifestów zlokalizowane są w katalogu `/application/k8s/`.
+
+### 1. Wdrożenie bazy danych PostgreSQL (`StatefulSet`)
+```bash
+kubectl apply -f application/k8s/postgres.yaml
+```
+
+### 2. Wdrożenie mikroserwisów i HPA
+```bash
+kubectl apply -f application/k8s/reservation-service.yaml
+kubectl apply -f application/k8s/user-notification-service.yaml
+kubectl apply -f application/k8s/frontend.yaml
+kubectl apply -f application/k8s/hpa-reservation-service.yaml
+```
+
+*Lub jednorazowo przy użyciu Kustomize:*
+```bash
+kubectl apply -k application/k8s/
+```
+
