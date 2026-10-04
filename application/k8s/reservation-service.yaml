@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: reservation-service
-        image: <AWS_ACCOUNT_ID>.dkr.ecr.eu-central-1.amazonaws.com/reservation-service:latest
+        image: 137068226927.dkr.ecr.eu-central-1.amazonaws.com/reservation-service:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000

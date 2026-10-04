@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: <AWS_ACCOUNT_ID>.dkr.ecr.eu-central-1.amazonaws.com/frontend:latest
+        image: 137068226927.dkr.ecr.eu-central-1.amazonaws.com/frontend:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

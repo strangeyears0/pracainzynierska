@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-error":"#690005","surface-tint":"#00daf3","surface-container-highest":"#31353e","primary-container":"#00e5ff","on-tertiary":"#452b00","secondary-fixed":"#62ff96","secondary":"#7dffa2","on-error-container":"#ffdad6","inverse-on-surface":"#2c3039","on-surface-variant":"#bac9cc","error":"#ffb4ab","on-tertiary-container":"#7b5000","inverse-primary":"#006875","surface-dim":"#0f131c","on-background":"#dfe2ee","tertiary-fixed":"#ffddb3","background":"#0f131c","primary-fixed-dim":"#00daf3","on-tertiary-fixed":"#291800","surface-container-low":"#181c24","outline":"#849396","on-primary-fixed-variant":"#004f58","primary":"#c3f5ff","on-primary-fixed":"#001f24","surface-container-lowest":"#0a0e16","primary-fixed":"#9cf0ff","on-secondary-fixed-variant":"#005226","surface-variant":"#31353e","on-primary":"#00363d","surface-container-high":"#262a33","secondary-container":"#05e777","inverse-surface":"#dfe2ee","tertiary":"#ffead2","on-secondary-fixed":"#00210b","error-container":"#93000a","surface-container":"#1c2028","on-tertiary-fixed-variant":"#624000","tertiary-container":"#ffc779","secondary-fixed-dim":"#00e475","outline-variant":"#3b494c","on-primary-container":"#00626e","on-secondary":"#003918","on-secondary-container":"#00622e","surface":"#0f131c","surface-bright":"#353942","tertiary-fixed-dim":"#ffb950","on-surface":"#dfe2ee"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-sm":"0.5rem","margin":"1.5rem","space-xl":"2.5rem","gutter-mobile":"0.75rem","space-xs":"0.25rem","gutter":"1rem","space-md":"1rem","space-lg":"1.5rem","margin-mobile":"1rem"},"fontFamily":{"label-md":["JetBrains Mono"],"body-md":["Inter"],"display-lg-mobile":["Inter"],"body-lg":["Inter"],"body-sm":["Inter"],"headline-lg":["Inter"],"label-sm":["JetBrains Mono"],"data-metric":["JetBrains Mono"],"display-lg":["Inter"],"label-lg":["JetBrains Mono"],"headline-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-md":["Inter"]},"fontSize":{"label-md":["11px",{"lineHeight":"16px","letterSpacing":"0.06em","fontWeight":"500"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"display-lg-mobile":["32px",{"lineHeight":"40px","letterSpacing":"-0.01em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-sm":["10px",{"lineHeight":"14px","letterSpacing":"0.08em","fontWeight":"500"}],"data-metric":["20px",{"lineHeight":"24px","letterSpacing":"-0.01em","fontWeight":"700"}],"display-lg":["48px",{"lineHeight":"56px","letterSpacing":"-0.02em","fontWeight":"700"}],"label-lg":["13px",{"lineHeight":"18px","letterSpacing":"0.04em","fontWeight":"500"}],"headline-sm":["18px",{"lineHeight":"24px","letterSpacing":"-0.005em","fontWeight":"600"}],"headline-lg-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.4)]"><div class="h-16 w-full px-gutter flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg shrink-0"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-lg bg-primary-container/20 flex items-center justify-center text-primary-container shadow-sm"><span class="material-symbols-outlined text-[20px]">domain</span></div><div class="flex flex-col"><span class="font-label-lg text-label-lg font-bold tracking-tight text-primary uppercase">Aether Tower</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Smart Workspace Portal</span></div></div><div class="hidden md:flex items-center bg-surface-container-low px-space-sm py-space-xs rounded-lg gap-space-xs border border-surface-variant/20"><span class="material-symbols-outlined text-[16px] text-surface-tint">layers</span><span class="font-label-sm text-label-sm text-on-surface-variant uppercase font-semibold">Poziom:</span><select class="bg-transparent text-primary font-label-sm text-label-sm uppercase font-bold focus:outline-none cursor-pointer"><option class="bg-surface-container text-on-surface" selected="" value="42">Piętro 42 • Labs &amp; Focus</option><option class="bg-surface-container text-on-surface" value="41">Piętro 41 • Innovation Hub</option><option class="bg-surface-container text-on-surface" value="40">Piętro 40 • Open Space</option><option class="bg-surface-container text-on-surface" value="39">Piętro 39 • Silent Zone</option><option class="bg-surface-container text-on-surface" value="38">Piętro 38 • Design Studio</option></select></div></div><div class="hidden lg:flex items-center gap-space-md bg-surface-container-low/80 px-space-md py-space-xs rounded-lg border border-surface-variant/20"><div class="flex items-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(0,230,118,0.5)]"></span><span class="font-label-sm text-label-sm text-on-surface-variant">Biuro Otwarte:</span><span class="font-label-sm text-label-sm text-secondary font-semibold">06:00 - 22:00</span></div><div class="w-px h-3.5 bg-surface-variant"></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[15px] text-primary">thermostat</span><span class="font-label-sm text-label-sm text-on-surface font-semibold">21.5°C</span></div><div class="w-px h-3.5 bg-surface-variant"></div><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[15px] text-secondary">wifi</span><span class="font-label-sm text-label-sm text-on-surface font-semibold">Aether-5G HighSpeed</span></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden sm:flex flex-col text-right"><span class="font-label-sm text-label-sm text-on-surface font-semibold">Dzisiaj, 18 Maja</span><span class="font-label-sm text-label-sm text-secondary font-mono font-medium">14:38 • Dostęp Aktywny</span></div><div class="flex items-center gap-space-sm pl-space-sm border-l border-surface-variant/30"><div class="flex flex-col items-end"><span class="font-label-sm text-label-sm text-on-surface font-semibold">Mateusz Thorne</span><span class="text-surface-tint font-label-sm text-[10px] uppercase tracking-wide font-medium">Product Designer</span></div><div class="w-9 h-9 rounded-full bg-primary-container/20 border border-primary-container/40 flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[20px]">person</span></div></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-lowest z-40 flex flex-col justify-between p-space-md"><div class="flex flex-col gap-space-md"><div class="px-space-sm py-space-xs flex items-center justify-between border-b border-surface-variant/20 pb-2"><span class="font-label-sm text-label-sm uppercase tracking-wider text-outline font-semibold">Biuro i Miejsca</span><span class="font-label-sm text-[10px] text-secondary bg-secondary-fixed/10 px-1.5 py-0.5 rounded font-bold">WOLNE 24/150</span></div><nav class="flex flex-col gap-space-xs"><a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="/"><span class="material-symbols-outlined text-[18px]">desk</span><span class="font-body-sm text-body-sm">Rezerwacja Biurka</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">meeting_room</span><span class="font-body-sm text-body-sm">Sale Konferencyjne</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg bg-surface-container-high text-primary font-semibold hover:bg-surface-container hover:text-on-surface transition-colors" href="/reservations.html"><span class="material-symbols-outlined text-[18px] text-primary-container">event_available</span><span class="font-body-sm text-body-sm">Moje Rezerwacje</span><span class="ml-auto bg-primary-container text-on-primary-container text-[10px] font-bold px-1.5 py-0.2 rounded-full">1</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">group</span><span class="font-body-sm text-body-sm">Gdzie Siedzi Mój Zespół?</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">local_parking</span><span class="font-body-sm text-body-sm">Parking Podziemny</span></a><a class="flex items-center gap-space-sm px-space-sm py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" href="#"><span class="material-symbols-outlined text-[18px]">coffee</span><span class="font-body-sm text-body-sm">Strefy Chill &amp; Kawiarnia</span></a></nav></div><div class="bg-surface-container-low rounded-xl p-space-sm border border-surface-variant/20 flex flex-col gap-space-xs"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-[18px] text-surface-tint">badge</span><span class="font-label-sm text-label-sm text-on-surface font-semibold">Karta Wejściowa NFC</span></div><p class="font-body-sm text-[11px] text-on-surface-variant leading-tight">Twoja karta i telefon są zsynchronizowane z biurkiem D-08.</p><div class="flex items-center justify-between pt-1 border-t border-surface-variant/20"><span class="font-label-sm text-[10px] text-secondary font-semibold">Status: Aktywna</span><span class="font-label-sm text-[10px] text-on-surface-variant font-mono">ID: #8892-A</span></div></div></aside><div class="pl-64"><main class="relative pt-16 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- Interactive Style Helpers -->
+<style>
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.08); }
+    }
+    @keyframes radarScan {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    .radar-beam {
+      animation: radarScan 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+    .neon-glow-primary {
+      box-shadow: 0 0 20px -3px rgba(0, 229, 255, 0.28);
+    }
+    .neon-glow-secondary {
+      box-shadow: 0 0 16px -2px rgba(5, 231, 119, 0.35);
+    }
+  </style>
+
+<!-- Main View Container -->
+<div class="p-margin flex flex-col gap-space-lg">
+<!-- 1. HEADER SECTION -->
+<div class="flex flex-col xl:flex-row xl:items-end justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-sm text-label-sm text-surface-tint uppercase tracking-widest">Pulpit Pracownika • Aether Tower</span>
+<span class="font-label-sm text-label-sm text-outline-variant font-mono">/</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">ID: ATH-OS-P42</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight flex items-center gap-3">
+          Moje Rezerwacje
+          <span class="px-2 py-0.5 rounded-full bg-surface-container-high text-surface-tint font-label-sm text-label-sm font-semibold tracking-wide">
+            4 POZYCJE
+          </span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Zarządzaj swoimi aktywnymi, nadchodzącymi oraz archiwalnymi rezerwacjami biurek, sal konferencyjnych i miejsc parkingowych.
+        </p>
+</div>
+<!-- Quick Action Buttons -->
+<div class="flex items-center gap-space-sm shrink-0 flex-wrap">
+<button class="group flex items-center gap-space-xs bg-surface-container-low hover:bg-surface-container-high text-on-surface px-space-md py-space-sm rounded-lg transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px] text-surface-tint group-hover:rotate-12 transition-transform">nfc</span>
+<span class="font-label-md text-label-md font-semibold tracking-wider uppercase">Historia wstępu NFC / Logi</span>
+</button>
+<button class="group flex items-center gap-space-xs bg-primary-container hover:bg-primary-fixed-dim text-on-primary-fixed px-space-md py-space-sm rounded-lg font-bold transition-all neon-glow-primary" type="button" onclick="window.location.href='/'">
+<span class="material-symbols-outlined text-[18px] transition-transform group-hover:scale-110">add_circle</span>
+<span class="font-label-md text-label-md font-bold tracking-wider uppercase">Zarezerwuj nowe biurko</span>
+</button>
+</div>
+</div>
+<!-- 2. SUMMARY STATS / KPI ROW -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1: Aktywne dzisiaj -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Aktywne Dzisiaj</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary-fixed"></span>
+</span>
+<span class="font-data-metric text-data-metric text-on-surface font-mono" id="kpi-active-count">1 STANOWISKO</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[20px]">desk</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between bg-surface-container-lowest/60 rounded px-2 py-1.5">
+<span class="font-label-sm text-label-sm text-primary font-mono font-medium" id="kpi-active-desk">Biurko D-08 • P42</span>
+<span class="font-label-sm text-label-sm text-secondary font-mono font-semibold">Do 18:00</span>
+</div>
+</div>
+<!-- KPI 2: Nadchodzące w tym tygodniu -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Nadchodzące w tygodniu</span>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-data-metric text-data-metric text-on-surface font-mono" id="kpi-upcoming-count">3 REZERWACJE</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-surface-tint">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+</div>
+</div>
+<div class="mt-space-md flex items-center gap-1.5 flex-wrap" id="kpi-upcoming-tags">
+<span class="font-label-sm text-[10px] bg-surface-container px-2 py-0.5 rounded text-on-surface-variant font-mono">Focus Beta</span>
+<span class="font-label-sm text-[10px] bg-surface-container px-2 py-0.5 rounded text-on-surface-variant font-mono">Parking P-2 #14</span>
+<span class="font-label-sm text-[10px] bg-surface-container px-2 py-0.5 rounded text-on-surface-variant font-mono">Biurko A-12</span>
+</div>
+</div>
+<!-- KPI 3: Limit miesięczny -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Wykorzystany Limit Mies.</span>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-data-metric text-data-metric text-on-surface font-mono" id="kpi-limit-used">14</span>
+<span class="font-body-md text-on-surface-variant font-mono">/ 20 Dni</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-tertiary-container">
+<span class="material-symbols-outlined text-[20px]">donut_large</span>
+</div>
+</div>
+<!-- Progress mini visualizer -->
+<div class="mt-space-md flex flex-col gap-1.5">
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-500" style="width: 70%" id="kpi-limit-bar"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-label-sm text-on-surface-variant">
+<span id="kpi-limit-percent">70% wykorzystane</span>
+<span class="text-primary" id="kpi-limit-remaining">Pozostało: 6 dni</span>
+</div>
+</div>
+</div>
+<!-- KPI 4: Karta NFC / Mobilny klucz -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col justify-between relative overflow-hidden group">
+<div class="flex items-start justify-between">
+<div class="flex flex-col gap-0.5">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Karta NFC / Dostęp Mobilny</span>
+<div class="flex items-center gap-1.5 mt-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="font-data-metric text-data-metric text-secondary font-mono">ZSYNCHRONIZOWANA</span>
+</div>
+</div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[20px]">contactless</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-on-surface-variant">
+<span class="font-label-sm text-[11px] font-mono text-outline">Klucz: #8892-A</span>
+<span class="font-label-sm text-[10px] bg-secondary-fixed/10 text-secondary px-2 py-0.5 rounded font-semibold uppercase">Ważny 24h</span>
+</div>
+</div>
+</div>
+<!-- 3. TABS & FILTER BAR -->
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-space-sm bg-surface-container-lowest p-space-xs rounded-xl">
+<!-- Segmented filter buttons -->
+<div class="flex items-center gap-1 overflow-x-auto py-1 scrollbar-none">
+<button class="bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold uppercase px-space-md py-space-xs rounded-lg whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span>Wszystkie</span>
+<span class="bg-primary/20 text-primary-container px-1.5 py-0.2 text-[10px] rounded" id="filter-all-count">4</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm font-semibold uppercase px-space-md py-space-xs rounded-lg whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span>Biurka i Focus</span>
+<span class="bg-surface-container-high text-outline px-1.5 py-0.2 text-[10px] rounded" id="filter-desk-count">2</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm font-semibold uppercase px-space-md py-space-xs rounded-lg whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span>Sale Spotkań</span>
+<span class="bg-surface-container-high text-outline px-1.5 py-0.2 text-[10px] rounded" id="filter-room-count">1</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm font-semibold uppercase px-space-md py-space-xs rounded-lg whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span>Parking Podziemny</span>
+<span class="bg-surface-container-high text-outline px-1.5 py-0.2 text-[10px] rounded" id="filter-parking-count">1</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low font-label-sm text-label-sm font-semibold uppercase px-space-md py-space-xs rounded-lg whitespace-nowrap flex items-center gap-1.5 transition-colors" type="button">
+<span>Archiwum &amp; Anulowane</span>
+</button>
+</div>
+<!-- Quick Date Selector -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-lg shrink-0 self-end lg:self-auto">
+<button class="bg-surface-container-highest text-on-surface px-space-sm py-1 rounded text-label-sm font-label-sm font-semibold" type="button">Ten tydzień</button>
+<button class="text-on-surface-variant hover:text-on-surface px-space-sm py-1 rounded text-label-sm font-label-sm font-medium transition-colors" type="button">Przyszły tydzień</button>
+<button class="text-on-surface-variant hover:text-on-surface px-2 py-1 rounded flex items-center gap-1 text-label-sm font-label-sm transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">date_range</span>
+          Kalendarz
+        </button>
+</div>
+</div>
+<!-- 4. MAIN CONTENT AREA: TWO COLUMNS (70% / 30%) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- LEFT / PRIMARY COLUMN (8 of 12 cols = 66-70%) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg">
+<!-- HERO CARD: LIVE ACTIVE SESSION -->
+<div class="bg-surface-container-low rounded-xl overflow-hidden relative shadow-lg" id="live-session-card">
+<!-- Top Cyber Strip indicator -->
+<div class="h-1 w-full bg-gradient-to-r from-secondary via-primary-container to-secondary"></div>
+<div class="p-space-lg flex flex-col gap-space-md">
+<!-- Header bar with Live pulse badge -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<div class="px-2.5 py-1 rounded-full bg-secondary/15 flex items-center gap-2 neon-glow-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+<span class="font-label-sm text-label-sm text-secondary font-bold tracking-wider uppercase">AKTYWNA TERAZ (NA ŻYWO)</span>
+</div>
+<span class="font-label-sm text-label-sm text-outline font-mono">OD 08:45 DO 18:00</span>
+</div>
+<span class="font-label-sm text-[11px] text-surface-tint font-mono bg-surface-container-high px-2 py-1 rounded" id="live-floor-tag">
+                PIĘTRO 42 • LABS &amp; FOCUS
+              </span>
+</div>
+<!-- Content block & floorplan visualizer -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-md items-center">
+<!-- Left info in hero card -->
+<div class="md:col-span-7 flex flex-col gap-space-sm">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight" id="live-desk-title">Biurko D-08</h2>
+<span class="font-label-sm text-[11px] bg-primary-container/15 text-primary px-2 py-0.5 rounded font-mono" id="live-zone-tag">STREFA DELTA</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1" id="live-desk-desc">
+                    Hot Desks &amp; Dual 4K Visualizer Zone • Piętro 42, Skrzydło Wschodnie (Labs)
+                  </p>
+</div>
+<!-- Spec items -->
+<div class="grid grid-cols-2 gap-space-xs text-on-surface pt-1">
+<div class="flex items-center gap-2 bg-surface-container/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-primary">height</span>
+<span class="font-label-sm text-[11px]">Sit-Stand Elektryczny</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-primary">desktop_windows</span>
+<span class="font-label-sm text-[11px]">2x Dell UltraSharp 4K</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-primary">power</span>
+<span class="font-label-sm text-[11px]">Stacja USB-C 90W PD</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container/60 p-2 rounded-lg">
+<span class="material-symbols-outlined text-[18px] text-secondary">wifi_protected_setup</span>
+<span class="font-label-sm text-[11px]">Port 10Gbps Ethernet</span>
+</div>
+</div>
+<!-- Check-in verification notice -->
+<div class="flex items-center gap-2 text-on-surface-variant text-body-sm bg-surface-container-lowest/70 px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary text-[18px]">verified</span>
+<span class="text-[12px] leading-tight font-body-sm">
+                    Automatycznie zweryfikowano przez bramkę NFC <span class="text-on-surface font-semibold">o 08:45</span>. Sesja wygasa za <span class="text-primary font-mono font-bold">3h 22m</span>.
+                  </span>
+</div>
+</div>
+<!-- Right mini schematic / architectural visual of Floor 42 snippet -->
+<div class="md:col-span-5 relative bg-surface-container-lowest rounded-xl p-3 overflow-hidden flex flex-col items-center justify-center">
+<div class="absolute inset-0 opacity-10 bg-[radial-gradient(#00daf3_1px,transparent_1px)] [background-size:12px_12px]"></div>
+<!-- Radar sweep line -->
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-container/10 to-transparent h-10 w-full radar-beam pointer-events-none"></div>
+<div class="w-full flex justify-between items-center pb-2 text-[10px] font-label-sm text-outline uppercase font-mono">
+<span id="live-mini-sector">Sektor D // P42-EAST</span>
+<span class="text-secondary flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Live Node
+                  </span>
+</div>
+<!-- SVG Mini Floor Blueprint representation -->
+<div class="relative w-full aspect-[4/3] bg-surface-container-low rounded flex items-center justify-center p-2">
+<svg class="w-full h-full text-outline-variant" fill="none" viewbox="0 0 240 160" xmlns="http://www.w3.org/2000/svg">
+<!-- Floor boundary -->
+<rect height="140" rx="4" stroke="currentColor" stroke-dasharray="2 3" stroke-width="1" width="220" x="10" y="10"></rect>
+<line stroke="currentColor" stroke-dasharray="1 4" stroke-width="0.5" x1="120" x2="120" y1="10" y2="150"></line>
+<!-- Desks cluster Alpha -->
+<rect fill="#262a33" height="16" rx="2" width="24" x="25" y="25"></rect>
+<rect fill="#262a33" height="16" rx="2" width="24" x="25" y="46"></rect>
+<rect fill="#262a33" height="16" rx="2" width="24" x="54" y="25"></rect>
+<rect fill="#262a33" height="16" rx="2" width="24" x="54" y="46"></rect>
+<!-- Desks cluster Beta -->
+<rect fill="#262a33" height="16" rx="2" width="24" x="25" y="90"></rect>
+<rect fill="#262a33" height="16" rx="2" width="24" x="54" y="90"></rect>
+<!-- Active Zone Delta: Desk D-08 HIGHLIGHTED -->
+<rect fill="#00e5ff" fill-opacity="0.08" height="90" rx="4" stroke="#00e5ff" stroke-width="1" width="60" x="150" y="35"></rect>
+<text fill="#00daf3" font-family="JetBrains Mono" font-size="8" font-weight="bold" x="156" y="50">DELTA ZONE</text>
+<!-- Desk D-07 (Occupied grey) -->
+<rect fill="#3b494c" height="14" rx="2" width="22" x="156" y="60"></rect>
+<!-- Desk D-08 (YOU - Glowing Cyan / Emerald) -->
+<rect class="drop-shadow-[0_0_8px_rgba(0,229,255,0.7)]" fill="#00e5ff" height="14" rx="2" stroke="#c3f5ff" stroke-width="1.5" width="22" x="183" y="60"></rect>
+<circle cx="194" cy="67" fill="#00363d" r="3"></circle>
+<text fill="#c3f5ff" font-family="JetBrains Mono" font-size="7" font-weight="bold" x="187" y="85" id="live-mini-desk">D-08 (TY)</text>
+<!-- Desk D-09 (Available green dot) -->
+<rect fill="#262a33" height="14" rx="2" width="22" x="156" y="85"></rect>
+<circle cx="167" cy="92" fill="#62ff96" r="2"></circle>
+</svg>
+<div class="absolute bottom-2 left-2 text-[9px] font-label-sm text-surface-tint font-mono">
+                    Współrzędne: X:42.8 Y:19.4
+                  </div>
+</div>
+<div class="mt-2 w-full flex items-center justify-between text-[11px] font-label-sm text-on-surface-variant">
+<span>Wyciszenie akustyczne: <b class="text-on-surface">38 dB</b></span>
+<span class="text-secondary font-mono">Temp: 21.5°C</span>
+</div>
+</div>
+</div>
+<!-- Hero Action Buttons -->
+<div class="pt-space-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px] text-surface-tint">more_time</span>
+                  Przedłuż o 2h (+2h)
+                </button>
+<button class="px-space-md py-space-xs rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1.5" type="button" onclick="window.location.href='/'">
+<span class="material-symbols-outlined text-[16px] text-surface-tint">map</span>
+                  Nawiguj na piętro (Mapa rzutu)
+                </button>
+</div>
+<button class="px-space-md py-space-xs rounded-lg bg-error-container/40 hover:bg-error-container/60 text-error font-label-sm text-label-sm font-semibold transition-colors flex items-center gap-1.5" type="button" id="hero-release-btn">
+<span class="material-symbols-outlined text-[16px]">logout</span>
+                Zwolnij biurko wcześniej
+              </button>
+</div>
+</div>
+</div>
+<!-- UPCOMING BOOKINGS SECTION -->
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-tint text-[22px]">calendar_today</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Nadchodzące Rezerwacje</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Synchronizacja: Outlook &amp; G-Suite ✓</span>
+</div>
+<div id="upcoming-reservations-list" class="flex flex-col gap-space-md">
+<!-- DYNAMICALLY INJECTED LIST -->
+<!-- We keep a hardcoded mock just so it looks good if JS is not running yet -->
+<div class="bg-surface-container-low text-on-surface-variant p-4 text-center rounded-xl font-label-sm text-[12px] border border-surface-variant/20">
+              Ładowanie z bazy danych...
+            </div>
+</div>
+</div>
+</div>
+<!-- RIGHT COLUMN (4 of 12 cols = 30-33%) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- WIDGET 1: DIGITAL PASS / VIRTUAL ACCESS CARD -->
+<div class="bg-surface-container-low rounded-xl p-space-md relative overflow-hidden flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-surface-tint uppercase tracking-wider font-semibold">Mobilna Przepustka</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<!-- Realistic Virtual Holographic Card -->
+<div class="relative w-full rounded-xl bg-gradient-to-br from-surface-container-highest via-surface-container to-surface-container-lowest p-space-md shadow-2xl overflow-hidden flex flex-col justify-between aspect-[1.58/1]">
+<div class="absolute -right-8 -top-8 w-28 h-28 bg-primary-container/20 rounded-full blur-xl pointer-events-none"></div>
+<!-- Card Header -->
+<div class="flex items-center justify-between relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">domain</span>
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Aether ID</span>
+</div>
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[18px]">contactless</span>
+<span class="font-label-sm text-[10px] font-mono uppercase">NFC ON</span>
+</div>
+</div>
+<!-- Card Middle with QR & chip simulation -->
+<div class="flex items-center justify-between my-2 relative z-10">
+<!-- Inline QR Code SVG representation -->
+<div class="w-16 h-16 bg-white p-1 rounded-lg flex items-center justify-center shrink-0">
+<svg class="w-full h-full text-surface-dim" fill="currentColor" viewbox="0 0 48 48">
+<path d="M4 4h16v16H4V4zm4 4v8h8V8H8zm20-4h16v16H28V4zm4 4v8h8V8h-8zM4 28h16v16H4V28zm4 4v8h8v-8H8zm24-4h4v4h-4v-4zm8 0h4v8h-4v-8zm-8 8h4v4h-4v-4zm4 4h4v4h-4v-4zm4 0h4v4h-4v-4zM10 10h4v4h-4v-4zm24 0h4v4h-4v-4zm-24 24h4v4h-4v-4z"></path>
+</svg>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-[10px] text-outline uppercase font-mono">Autoryzacja Winda L71</span>
+<span class="font-label-sm text-[12px] text-on-surface font-mono font-bold">PIĘTRO: ALL ACCESS</span>
+<span class="text-[10px] text-secondary font-mono">Bramki: Skrzydło A/B/C</span>
+</div>
+</div>
+<!-- Card Bottom -->
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant/30 relative z-10">
+<div class="flex flex-col">
+<span class="font-label-sm text-[9px] text-outline uppercase">Posiadacz</span>
+<span class="font-label-sm text-[12px] text-on-surface font-semibold">Mateusz Thorne</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-sm text-[9px] text-outline uppercase">Klucz Cyfrowy</span>
+<span class="font-label-sm text-[11px] text-surface-tint font-mono font-bold">ATH-8892-42</span>
+</div>
+</div>
+</div>
+<!-- Pass Actions -->
+<div class="flex flex-col gap-2">
+<button class="w-full py-space-xs px-space-sm bg-surface-container hover:bg-surface-container-high text-on-surface rounded-lg font-label-sm text-[11px] font-semibold flex items-center justify-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">smartphone</span>
+              Dodaj do Apple Wallet / Google Wallet
+            </button>
+<button class="w-full py-space-xs px-space-sm bg-surface-container-lowest hover:bg-surface-container text-on-surface-variant rounded-lg font-label-sm text-[11px] flex items-center justify-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">qr_code_scanner</span>
+              Pokaż pełnoekranowy kod do bramki
+            </button>
+</div>
+</div>
+<!-- WIDGET 2: QUICK RE-BOOK FAVORITES -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-tint text-[18px]">star</span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold uppercase tracking-wider">Ulubione Stanowiska</span>
+</div>
+<span class="font-label-sm text-[11px] text-outline font-mono">Szybka rezerwacja</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<!-- Favorite 1 -->
+<div class="p-space-sm bg-surface-container rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[16px]">desk</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Biurko D-08</span>
+<span class="text-[10px] text-on-surface-variant font-mono">Piętro 42 • Dual 4K</span>
+</div>
+</div>
+<button class="px-2.5 py-1 bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-fixed text-primary font-label-sm text-[10px] font-bold uppercase rounded transition-colors" type="button">
+                Na poniedziałek
+              </button>
+</div>
+<!-- Favorite 2 -->
+<div class="p-space-sm bg-surface-container rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[16px]">desk</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Biurko A-04</span>
+<span class="text-[10px] text-on-surface-variant font-mono">Piętro 42 • Silent Zone</span>
+</div>
+</div>
+<button class="px-2.5 py-1 bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-fixed text-primary font-label-sm text-[10px] font-bold uppercase rounded transition-colors" type="button">
+                Rezerwuj
+              </button>
+</div>
+<!-- Favorite 3 -->
+<div class="p-space-sm bg-surface-container rounded-lg flex items-center justify-between group hover:bg-surface-container-high transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[16px]">meeting_room</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface font-bold">Salka Podróżnik</span>
+<span class="text-[10px] text-on-surface-variant font-mono">Piętro 41 • 4 osoby</span>
+</div>
+</div>
+<button class="px-2.5 py-1 bg-surface-container-lowest hover:bg-primary-container hover:text-on-primary-fixed text-primary font-label-sm text-[10px] font-bold uppercase rounded transition-colors" type="button">
+                Rezerwuj
+              </button>
+</div>
+</div>
+</div>
+<!-- WIDGET 3: OFFICE POLICY & RULES -->
+<div class="bg-surface-container-low/70 rounded-xl p-space-md flex flex-col gap-space-xs relative">
+<div class="flex items-center gap-2 text-tertiary-container">
+<span class="material-symbols-outlined text-[18px]">info</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Polityka Biura &amp; Check-In</span>
+</div>
+<p class="font-body-sm text-[12px] text-on-surface-variant leading-relaxed">
+            Pamiętaj o wcześniejszym zwolnieniu biurka w systemie, jeśli decydujesz się na pracę zdalną.
+          </p>
+<div class="bg-surface-container-lowest/80 p-2.5 rounded-lg flex items-start gap-2 mt-1">
+<span class="material-symbols-outlined text-secondary text-[16px] shrink-0 mt-0.5">timer</span>
+<span class="font-label-sm text-[11px] text-on-surface leading-tight">
+<b>Automatyczne zwolnienie rezerwacji</b> następuje przy braku fizycznego check-in kartą lub telefonem <b>do godziny 10:00</b>.
+            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script src="reservations.js"></script>
+</div></main></div>
+</body></html>

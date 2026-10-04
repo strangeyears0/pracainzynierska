@@ -34,6 +34,7 @@ NOTIFICATION_SERVICE_URL = os.getenv("NOTIFICATION_SERVICE_URL", "http://localho
 
 class ResourceBase(BaseModel):
     id: str
+    floor: int = 1
     name: str
     type: str
     zone: str
@@ -79,30 +80,70 @@ class ResourceStatusResponse(ResourceBase):
 
 def seed_initial_data(db: Session):
     if db.query(Resource).count() == 0:
-        initial_resources = [
-            # Zone A: Open Space Desks
-            Resource(id="DESK-01", name="Biurko 01 (Strefa Cicha)", type="desk", zone="Strefa A", capacity=1, description="Biurko narożne z widokiem na ogród", features="Dual Monitor 27\", Dok USB-C, Regulowany fotel"),
-            Resource(id="DESK-02", name="Biurko 02 (Open Space)", type="desk", zone="Strefa A", capacity=1, description="Standardowe stanowisko pracy", features="Monitor 4K, Dok USB-C"),
-            Resource(id="DESK-03", name="Biurko 03 (Open Space)", type="desk", zone="Strefa A", capacity=1, description="Standardowe stanowisko pracy", features="Monitor 4K, Dok USB-C"),
-            Resource(id="DESK-04", name="Biurko 04 (Open Space)", type="desk", zone="Strefa A", capacity=1, description="Stanowisko z ładowaniem bezprzewodowym", features="Monitor UltraWide 34\", Dok USB-C, Ładowarka Qi"),
-            Resource(id="DESK-05", name="Biurko 05 (Strefa A)", type="desk", zone="Strefa A", capacity=1, description="Stanowisko przy oknie", features="Monitor 27\", Dok USB-C"),
-            Resource(id="DESK-06", name="Biurko 06 (Strefa A)", type="desk", zone="Strefa A", capacity=1, description="Stanowisko przy oknie", features="Monitor 27\", Dok USB-C"),
-            Resource(id="DESK-07", name="Biurko 07 (Strefa B)", type="desk", zone="Strefa B", capacity=1, description="Biurko z regulacją wysokości", features="Elektryczne biurko Stand-Up, Dual Monitor"),
-            Resource(id="DESK-08", name="Biurko 08 (Strefa B)", type="desk", zone="Strefa B", capacity=1, description="Biurko z regulacją wysokości", features="Elektryczne biurko Stand-Up, Dual Monitor"),
+        initial_resources = []
+        
+        zones = [("A", 38), ("B", 38), ("C", 37), ("D", 37)]
+        
+        # Generowanie 150 biurek dla każdego z 100 pięter
+        for floor_num in range(1, 101):
+            for prefix, count in zones:
+                for i in range(1, count + 1):
+                    desk_id = f"F{floor_num}-{prefix}-{i:02d}"
+                    initial_resources.append(
+                        Resource(
+                            id=desk_id,
+                            floor=floor_num,
+                            name=f"Biurko {prefix}-{i:02d} (Piętro {floor_num})",
+                            type="desk",
+                            zone=f"Strefa {prefix}",
+                            capacity=1,
+                            description="Stanowisko ergonomiczne w open space",
+                            features="Monitor 27\", Dok USB-C, Regulowany fotel"
+                        )
+                    )
             
-            # Sale konferencyjne
-            Resource(id="ROOM-A", name="Sala Alpha (Zarząd)", type="room", zone="Sale Spotkań", capacity=10, description="Reprezentacyjna sala konferencyjna", features="Projektor 4K, Wideokonferencja Polycom, Tablica dry-erase"),
-            Resource(id="ROOM-B", name="Sala Beta (Warsztatowa)", type="room", zone="Sale Spotkań", capacity=6, description="Kreatywny pokój spotkań", features="Smart TV 65\", Flipchart, Nagłośnienie Bluetooth"),
-            Resource(id="ROOM-C", name="Boks Fokus C", type="room", zone="Sale Spotkań", capacity=2, description="Akustyczna budka do cichych rozmów", features="Wygodne fotele, Oświetlenie LED, Dok USB"),
+            # Sale i parking dla każdego piętra
+            initial_resources.extend([
+                Resource(id=f"F{floor_num}-ROOM-A", floor=floor_num, name=f"Sala Alpha (Piętro {floor_num})", type="room", zone="Sale Spotkań", capacity=10, description="Reprezentacyjna sala konferencyjna", features="Projektor 4K, Wideokonferencja Polycom"),
+                Resource(id=f"F{floor_num}-ROOM-B", floor=floor_num, name=f"Sala Beta (Piętro {floor_num})", type="room", zone="Sale Spotkań", capacity=6, description="Kreatywny pokój spotkań", features="Smart TV 65\""),
+            ])
+            
+        # Paking podziemny wspoldzielony dla calego budynku (floor 0)
+        initial_resources.extend([
+            Resource(id="PARK-01", floor=0, name="Miejsce P1 (Ładowarka EV)", type="parking", zone="Parking Podziemny", capacity=1, description="Miejsce z szybką ładowarką elektryczną", features="Stacja ładowania 22kW AC"),
+            Resource(id="PARK-02", floor=0, name="Miejsce P2", type="parking", zone="Parking Podziemny", capacity=1, description="Standardowe miejsce podziemne", features="Szerokie miejsce parkingowe"),
+        ])
+        
+        # Chunking the inserts to avoid massive memory usage / transaction issues
+        chunk_size = 2000
+        for i in range(0, len(initial_resources), chunk_size):
+            db.add_all(initial_resources[i:i+chunk_size])
+            db.commit()
 
-            # Miejsca parkingowe
-            Resource(id="PARK-01", name="Miejsce P1 (Ładowarka EV)", type="parking", zone="Parking Podziemny", capacity=1, description="Miejsce z szybką ładowarką elektryczną", features="Stacja ładowania 22kW AC"),
-            Resource(id="PARK-02", name="Miejsce P2", type="parking", zone="Parking Podziemny", capacity=1, description="Standardowe miejsce podziemne", features="Szerokie miejsce parkingowe"),
-            Resource(id="PARK-03", name="Miejsce P3", type="parking", zone="Parking Podziemny", capacity=1, description="Standardowe miejsce podziemne", features="Blisko windy"),
-            Resource(id="PARK-04", name="Miejsce P4", type="parking", zone="Parking Podziemny", capacity=1, description="Miejsce dla gości", features="Rezerwowane na godziny"),
-        ]
-        db.add_all(initial_resources)
-        db.commit()
+        # Wygenerowanie losowych rezerwacji do celów testowych
+        import random
+        reservations_to_add = []
+        now = datetime.datetime.utcnow()
+        for floor_num in range(1, 101):
+            # Zarezerwuj około 15% biurek na każdym piętrze
+            desks_on_floor = [r for r in initial_resources if r.floor == floor_num and r.type == 'desk']
+            reserved_desks = random.sample(desks_on_floor, k=int(len(desks_on_floor) * 0.15))
+            for r in reserved_desks:
+                reservations_to_add.append(
+                    Reservation(
+                        resource_id=r.id,
+                        user_name=f"User {random.randint(100,999)}",
+                        user_email=f"user{random.randint(100,999)}@aethertower.pl",
+                        start_time=now - datetime.timedelta(hours=random.randint(1, 4)),
+                        end_time=now + datetime.timedelta(hours=random.randint(2, 8)),
+                        status="CONFIRMED",
+                        notes="Wygenerowana rezerwacja testowa"
+                    )
+                )
+        
+        for i in range(0, len(reservations_to_add), chunk_size):
+            db.add_all(reservations_to_add[i:i+chunk_size])
+            db.commit()
 
 
 @app.on_event("startup")
@@ -130,6 +171,7 @@ def health_check():
 
 @app.get("/api/resources", response_model=List[ResourceStatusResponse])
 def get_resources(
+    floor: Optional[int] = None,
     type: Optional[str] = None,
     zone: Optional[str] = None,
     start_time: Optional[datetime.datetime] = None,
@@ -137,6 +179,8 @@ def get_resources(
     db: Session = Depends(get_db),
 ):
     query = db.query(Resource).filter(Resource.is_active == True)
+    if floor is not None:
+        query = query.filter(Resource.floor == floor)
     if type:
         query = query.filter(Resource.type == type)
     if zone:
@@ -312,3 +356,5 @@ async def cancel_reservation(reservation_id: int, db: Session = Depends(get_db))
         print(f"[WARN] Nie udało się wysłać powiadomienia e-mail: {e}")
 
     return reservation
+
+# Trigger uvicorn reload

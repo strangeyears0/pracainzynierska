@@ -10,6 +10,7 @@ class Resource(Base):
     __tablename__ = "resources"
 
     id = Column(String, primary_key=True, index=True)
+    floor = Column(Integer, default=1, index=True)
     name = Column(String, nullable=False)
     type = Column(String, nullable=False, index=True)  # 'desk', 'room', 'parking'
     zone = Column(String, nullable=False)               # 'Strefa A', 'Strefa B', 'Sala spotkań', 'Parking'
